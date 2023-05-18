@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+
+	function ss(){
+	　	 $.ajax({
+	         type:"POST",
+	         url: "/user/signout",
+// 	         data: JSON.stringify(urlData), 
+	         contentType : "application/json;charset=UTF-8",
+	         dataType: "json",
+	         success: function(result){
+	        	 if(result.code == 0){
+	        		alert(result.message);
+		        	window.location.href="/";
+	        	 }else{
+	        		 $("#message").html("操作出错：" + result.message);
+	        	 }
+	         },
+	         error: function(result){
+        		 $("#message").html("操作出错：" + result.message);
+	         }
+	     });
+	}
+
+</script> 
+
+<link rel="stylesheet" type="text/css" href="/css/index.css">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>conf-admin</title>
+</head>
+
+<body>
+	
+	<div class="act">
+		<ul>
+		</ul>
+	</div>
+	
+	<div class="draw">
+		<table>
+			<th colspan="4">配置列表</th>
+			<#list appList as aa>
+				<tr>
+					<td>序号</td>
+					<td>配置组ID</td>
+					<td>配置组名称</td>
+					<td>启用状态</td>
+				</tr>
+				<tr>
+					<td>${aa_index + 1}</td>
+					<td>${aa.id}</td>
+					<td>${aa.name}</td>
+					<td>
+						<#if aa.enableStatus == 1>启用</#if>
+						<#if aa.enableStatus == 2>停用</#if>
+					</td>
+				</tr>
+			</#list>
+		</table>
+	</div>
+	
+</body>
+
+</html>
